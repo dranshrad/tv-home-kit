@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home-tv addition: holds a view's running lean spring (Lean.java). -->
+    <item name="lean_spring" type="id" />
+</resources>

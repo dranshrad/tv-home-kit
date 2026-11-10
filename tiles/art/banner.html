@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8">
+<!-- A tile banner, 640x360. Open with ?t=<title>&s=<small line>&c=<blue|indigo|teal|plum>&i=<box|pad|mark>
+     and take a 640x360 screenshot, for example:
+     chrome --headless --hide-scrollbars --window-size=640,360 --screenshot=banner_hdmi1.png "file://$PWD/banner.html?t=Set-top%20box&s=HDMI%201&c=blue&i=box" -->
+<style>
+@font-face{font-family:Outfit;src:url(outfit.ttf)}
+html,body{margin:0;width:640px;height:360px;overflow:hidden;font-family:Outfit,sans-serif;color:#fff}
+.b{width:640px;height:360px;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:0 54px;box-sizing:border-box;position:relative}
+.t{font-size:66px;font-weight:500;letter-spacing:-.01em;line-height:1}
+.s{font-size:27px;letter-spacing:.24em;opacity:.72;font-weight:400;text-transform:uppercase}
+svg{position:absolute;right:34px;bottom:26px;width:96px;height:96px;opacity:.2}
+.blue{background:linear-gradient(135deg,#123A8C 0%,#0B1F52 60%,#081433 100%)}
+.indigo{background:linear-gradient(135deg,#1F2B5E 0%,#0E1436 55%,#06081C 100%)}
+.teal{background:linear-gradient(135deg,#0F4A46 0%,#0A2B2C 60%,#061819 100%)}
+.plum{background:linear-gradient(135deg,#4A1F52 0%,#2A1233 60%,#150A1C 100%)}
+</style>
+<body><script>
+const q=new URLSearchParams(location.search);
+const icons={box:'<path d="M3 7h18v7l-3.6 5H6.6L3 14z" fill="#fff"/>',
+pad:'<path d="M7 8h10a5 5 0 0 1 4.9 4l.9 5a2.3 2.3 0 0 1-4 1.9L16.5 16h-9l-2.3 2.9a2.3 2.3 0 0 1-4-1.9l.9-5A5 5 0 0 1 7 8z" fill="#fff"/>',
+mark:'<path d="M6 3h12v18l-6-4.5L6 21z" fill="#fff"/>'};
+const b=document.createElement('div');
+b.className='b '+(['blue','indigo','teal','plum'].includes(q.get('c'))?q.get('c'):'blue');
+const t=document.createElement('div');t.className='t';t.textContent=q.get('t')||'Tile';
+const s=document.createElement('div');s.className='s';s.textContent=q.get('s')||'';
+b.append(t,s);b.insertAdjacentHTML('beforeend','<svg viewBox="0 0 24 24">'+(icons[q.get('i')]||icons.box)+'</svg>');
+document.body.append(b);
+</script>

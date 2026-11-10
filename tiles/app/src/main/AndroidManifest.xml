@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home tiles: home-screen tiles for HDMI inputs and for Google TV's own home. No permissions, no network, no
+     background work. Each tile is an alias of one activity that starts something and closes at once.
+
+     To fit your TV: read the input ids with `tools/tv.py 'dumpsys tv_input' | grep -E "HW[0-9]"` and put yours in
+     the "input" values below. If the tile does nothing, add a second meta-data named "app" holding the package
+     of the TV's own input viewer (the app in front after you pick an input from the TV's own Inputs menu), and
+     add that package to <queries>. Labels are in res/values/strings.xml; banners are made with art/banner.html. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <queries>
+        <package android:name="com.gathin.tvhome" />
+        <package android:name="com.google.android.apps.tv.launcherx" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:banner="@drawable/banner_watchlist"
+        android:icon="@drawable/banner_watchlist"
+        android:label="@string/app_name">
+
+        <activity
+            android:name=".TileActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.NoDisplay" />
+
+        <!-- HDMI 1. The input id below is a MediaTek example; yours may differ. -->
+        <activity-alias
+            android:name=".Hdmi1"
+            android:banner="@drawable/banner_hdmi1"
+            android:exported="true"
+            android:icon="@drawable/banner_hdmi1"
+            android:label="@string/hdmi1"
+            android:targetActivity=".TileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="input" android:value="com.mediatek.tvinput/.hdmi.HDMIInputService/HW5" />
+        </activity-alias>
+
+        <!-- HDMI 2. -->
+        <activity-alias
+            android:name=".Hdmi2"
+            android:banner="@drawable/banner_hdmi2"
+            android:exported="true"
+            android:icon="@drawable/banner_hdmi2"
+            android:label="@string/hdmi2"
+            android:targetActivity=".TileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="input" android:value="com.mediatek.tvinput/.hdmi.HDMIInputService/HW6" />
+        </activity-alias>
+
+        <!-- Google TV's own home: watchlist, Continue watching, search. -->
+        <activity-alias
+            android:name=".Watchlist"
+            android:banner="@drawable/banner_watchlist"
+            android:exported="true"
+            android:icon="@drawable/banner_watchlist"
+            android:label="@string/watchlist"
+            android:targetActivity=".TileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+</manifest>

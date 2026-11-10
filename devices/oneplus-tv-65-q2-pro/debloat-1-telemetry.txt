@@ -1,0 +1,13 @@
+# OnePlus TV 65 Q2 Pro (model E00, codename Edinburgh, MediaTek mt5889), Google TV on Android 11 (API 30)
+# Firmware RTT2.220808.001, built 2023-09-14, security patch 2023-09-05. Indian-market firmware.
+#
+# Apply:  TV_HOST=<tv ip> tools/disable.sh devices/oneplus-tv-65-q2-pro/debloat-1-telemetry.txt
+# Undo:   TV_HOST=<tv ip> tools/restore.sh devices/oneplus-tv-65-q2-pro/debloat-1-telemetry.txt
+# Everything is DISABLED for user 0, never uninstalled.
+
+# Telemetry, push marketing and remote diagnostics
+com.google.android.feedback            # Google feedback agent
+com.heytap.mcs                         # HeyTap push messaging (Firebase + nearx tracking)
+com.heytap.tv.remotediagnosing         # OnePlus remote diagnostics
+com.heytap.tv.remotecontrolinspect     # Remote-control diagnostics app
+com.heytap.rom.service                 # ROM log collector and uploader

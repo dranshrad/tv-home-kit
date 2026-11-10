@@ -1,0 +1,23 @@
+# OnePlus TV 65 Q2 Pro (E00, Edinburgh), Google TV on Android 11. Second batch: OnePlus content and promos.
+#
+# Apply:  TV_HOST=<tv ip> tools/disable.sh devices/oneplus-tv-65-q2-pro/debloat-2-oneplus-extras.txt
+# Undo:   TV_HOST=<tv ip> tools/restore.sh devices/oneplus-tv-65-q2-pro/debloat-2-oneplus-extras.txt
+# Everything is DISABLED for user 0, never uninstalled.
+#
+# Kept on purpose (never listed): Google TV home (com.google.android.apps.tv.launcherx: voice search and the
+# watchlist need it), the setup wizard (com.google.android.tungsten.setupwraith: it owns the saved Wi-Fi network),
+# Live TV and HDMI (com.heytap.tv.livetv, com.heytap.tvapiservice, com.mediatek.*), the remote service
+# (com.oneplus.tv.remote), Assistant (com.google.android.katniss), Chromecast (com.google.android.apps.mediashell),
+# firmware updates (com.heytap.oprcupgradeservice), Dolby (com.dolby.android.audio.service), OnePlus Connect
+# (com.heytap.olink), Miracast, TV Mirror, Bluetooth speaker mode, the USB file browser, the camera app, the
+# OnePlus account app, and the factory apps (com.heytap.optvfactory, com.oneplus.tv.factory, mediatek.factorymenu.ui:
+# never disabled and never launched).
+
+com.oneplus.tv.launcher                # OxygenPlay content page (promoted films and shows)
+com.heytap.tv.assistant.oneplus        # OnePlus TV Manager (cleaner, bandwidth alerts, pop-ups)
+com.heytap.tv.msgboard                 # Message board
+com.coloros.relax.tv                   # "Relax" ambient sounds app (nearx tracking)
+com.oneplus.tv.userguide               # Built-in user guide
+fusion.android.tv.demo                 # Shop demo
+oneplus.smarthome                      # OnePlus smart home control
+android.autoinstalls.config.OnePlus    # Partner app auto-install configuration

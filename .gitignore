@@ -1,0 +1,35 @@
+# The TV's own data: never commit
+devices/*/backup-*/
+devices/*/state-*/
+devices/*/shots/
+devices/**/*.png
+devices/**/*.jpg
+backup-*/
+/*.png
+/*.jpg
+/*.mp4
+# Your own photographs stay on your computer; only the four placeholders are tracked
+theme/wallpapers/*
+!theme/wallpapers/01-dusk.jpg
+!theme/wallpapers/02-sea.jpg
+!theme/wallpapers/03-ember.jpg
+!theme/wallpapers/04-slate.jpg
+!theme/wallpapers/captions.txt
+# Keys, credentials and the Python environment
+tools/adbkey/
+adbkey*
+.android/
+.env*
+*.jks
+*.keystore
+*.p12
+*.pem
+tools/venv/
+**/__pycache__/
+# Builds
+**/build/
+**/.gradle/
+**/local.properties
+*.apk
+.toolchain/
+.DS_Store
