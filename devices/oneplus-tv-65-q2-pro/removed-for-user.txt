@@ -1,0 +1,7 @@
+# OnePlus TV 65 Q2 Pro: packages flagged PERSISTENT, which Android starts at every boot even while disabled
+# (PLAYBOOK.md 5.7). Removing them for user 0 is the OWNER'S decision; nothing applies this file automatically.
+# Apply one:  tools/tv.py 'pm uninstall --user 0 <package>'   then restart and check. The system image keeps them.
+# Undo one:  tools/tv.py 'cmd package install-existing <package>'      (restore.sh does all of them)
+com.heytap.mcs            # HeyTap push messaging
+com.heytap.rom.service    # ROM log collector and uploader
+oneplus.smarthome         # OnePlus smart-home panel

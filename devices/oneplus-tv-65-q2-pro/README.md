@@ -40,7 +40,12 @@ Measured on one set. Model `E00`, codename `Edinburgh`, Google TV on Android 11 
 **Persistent processes (PLAYBOOK.md 5.7):** `com.heytap.mcs`, `com.heytap.rom.service` and `oneplus.smarthome` are
 flagged `PERSISTENT`. Disabled, they still load at boot (no services; four code-registered receivers in
 `com.heytap.mcs`; no outside connection seen in a 24-second sample). `am force-stop` leaves them running and
-`pm hide` is refused to the shell.
+`pm hide` is refused to the shell. On this set the owner chose removal for user 0 (`removed-for-user.txt`): the
+processes kept running until the restart; after it none of the three has a process, the log shows no crash, and
+the home screen, Wi-Fi and the Home helper are intact, and the owner confirmed the physical remote (arrows, Home,
+volume, microphone button). The Bluetooth remote shows as paired but not connected after a restart until its first
+button press; that is normal, not a fault. One warning remains in the log: a system component asks
+for `com.heytap.rom.service`'s app-manager service and does not find it.
 
 ## Traps found on this set
 
@@ -55,5 +60,7 @@ flagged `PERSISTENT`. Disabled, they still load at boot (no services; four code-
 - `uiautomator dump` returns the screen behind the main Settings list, but reads its sub-pages.
 - OnePlus's own page, Settings → System → Personalise, holds "Visible to other bluetooth devices" and "Quick
   discover" (the OnePlus Connect link).
+- Changing "Personal results" asks for the Google account PIN on the TV: the owner's step.
+- Switching "Quick discover" off leaves "Auto discover nearby earbuds" available.
 - Privacy switches found on at first read: Hands-free mic, Usage & diagnostics, an advertising ID, "Scanning always
   available", Bluetooth visibility.

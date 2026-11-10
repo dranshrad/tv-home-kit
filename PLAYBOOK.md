@@ -47,7 +47,12 @@ the owner only to press a button on the TV or to choose between plain options.
     microphone button works: if it was not measured, say "not confirmed" and name the test that settles it.
 11. **Close the door when the work is finished:** USB debugging off, then prove the port is closed
     (`tools/adb-closed.py <tv ip>`).
-12. **No private data in git, ever:** photographs, backups, screenshots of Settings (they show account names,
+12. **Look before you change the screen.** Before any command that changes what the TV shows (`am start`, key
+    presses, a restart), read what is in front and whether something is playing, in a separate step:
+    `T 'dumpsys activity activities | grep mResumedActivity'` and `T 'dumpsys media_session | grep state=PlaybackState'`
+    (`state=3` is playing). If someone is watching, do only silent work (`pm`, reads) and ask the owner when the
+    TV is free.
+13. **No private data in git, ever:** photographs, backups, screenshots of Settings (they show account names,
     device names, Bluetooth addresses), IP and MAC addresses, serial numbers, the ADB key under `tools/adbkey/`.
     Save every screenshot under `devices/<your-tv>/shots/` and every backup under `devices/<your-tv>/backup-<date>/`
     or outside the repository: the `.gitignore` here excludes those folders, the owner's wallpapers and key files.
@@ -180,7 +185,7 @@ owner. System apps sharing the `android` user all show every permission; that is
 | Privacy → **Usage & diagnostics** | Off | usage and crash data to Google | none |
 | Privacy → **Ads** → Delete advertising ID | Delete | apps lose the cross-app ad identifier | adverts become generic |
 | Privacy → Location → **Scanning always available** | Off | Wi-Fi scanning for location even with Wi-Fi off | none on a TV |
-| Privacy → Google Assistant → **Personal results** | Owner's choice | anyone at the TV can ask for the owner's personal results | personal answers stop |
+| Privacy → Google Assistant → **Personal results** | Owner's choice | anyone at the TV can ask for the owner's personal results | personal answers stop. The TV asks for the owner's Google PIN: the owner does this one at the TV; never ask for the PIN |
 | Privacy → Security & restrictions → **Unknown sources** | every app off | sideloading path for malware | none |
 | System → Cast → **Let others control your cast media** | Owner's choice ("Never" is tightest) | any Android device on the Wi-Fi can control a cast | other phones lose the notification |
 | Vendor page, if present → **Visible to other Bluetooth devices** | Off | 5.6 | pairing a new device needs the pairing page open |
@@ -240,7 +245,10 @@ code. `am force-stop` does not kill it, and `pm hide` is refused to the shell. T
 `pm uninstall --user 0 <package>` (undone with `cmd package install-existing <package>`): it removes nothing from
 the system image, but it is an uninstall for that user, so it is the **owner's decision**, not the agent's.
 Report the packages, what was measured (threads, receivers, outside connections sampled from `/proc/net/tcp`),
-and ask.
+and ask. On a yes: one `pm uninstall --user 0` per call, write the names into
+`devices/<your-tv>/removed-for-user.txt` (`restore.sh` brings them back from that file), restart, and check that
+none of them has a pid, the home screen, Wi-Fi, the Home helper and the remote work, and the log shows no crash
+loop. The processes keep running until that restart.
 
 ## 6. Phase D — debloat in batches
 
