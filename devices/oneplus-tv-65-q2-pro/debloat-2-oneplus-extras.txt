@@ -19,5 +19,5 @@ com.heytap.tv.msgboard                 # Message board
 com.coloros.relax.tv                   # "Relax" ambient sounds app (nearx tracking)
 com.oneplus.tv.userguide               # Built-in user guide
 fusion.android.tv.demo                 # Shop demo
-oneplus.smarthome                      # OnePlus smart home control
+oneplus.smarthome                      # OnePlus smart home control [PERSISTENT: still starts at boot when disabled; see removed-for-user.txt]
 android.autoinstalls.config.OnePlus    # Partner app auto-install configuration

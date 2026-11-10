@@ -179,17 +179,29 @@ owner. System apps sharing the `android` user all show every permission; that is
 
 ### 5.4 The Settings switches
 
-| Where on the TV | Recommended | Why | Cost |
+Two kinds of switch. **Quiet ones** change nothing the owner can see: change them, read them back, report them.
+**Everything that changes daily use is the owner's choice**: ask before touching it, never after. One owner had
+Bluetooth visibility switched off for him and asked for it back the same day: connecting a new device had become
+"too cumbersome". Security advice that makes the TV harder to live with gets undone, and costs trust.
+
+| Where on the TV | Who decides | Why it matters | Cost of the safer setting |
 |---|---|---|---|
-| Privacy → Google Assistant → **Hands-free mic** | Off | 5.1 | "Hey Google" by voice stops; the mic button stays |
-| Privacy → **Usage & diagnostics** | Off | usage and crash data to Google | none |
-| Privacy → **Ads** → Delete advertising ID | Delete | apps lose the cross-app ad identifier | adverts become generic |
-| Privacy → Location → **Scanning always available** | Off | Wi-Fi scanning for location even with Wi-Fi off | none on a TV |
+| Privacy → Google Assistant → **Hands-free mic** | Owner (recommend Off) | 5.1 | "Hey Google" by voice stops; the mic button stays |
+| Privacy → **Usage & diagnostics** | Quiet: Off | usage and crash data to Google | none |
+| Privacy → **Ads** → Delete advertising ID | Quiet: delete | apps lose the cross-app ad identifier | adverts become generic |
+| Privacy → Location → **Scanning always available** | Quiet: Off | Wi-Fi scanning for location even with Wi-Fi off | none on a TV |
 | Privacy → Google Assistant → **Personal results** | Owner's choice | anyone at the TV can ask for the owner's personal results | personal answers stop. The TV asks for the owner's Google PIN: the owner does this one at the TV; never ask for the PIN |
 | Privacy → Security & restrictions → **Unknown sources** | every app off | sideloading path for malware | none |
 | System → Cast → **Let others control your cast media** | Owner's choice ("Never" is tightest) | any Android device on the Wi-Fi can control a cast | other phones lose the notification |
-| Vendor page, if present → **Visible to other Bluetooth devices** | Off | 5.6 | pairing a new device needs the pairing page open |
-| Vendor "user experience / improvement programme" agreements | Decline | vendor telemetry | none |
+| Vendor page, if present → **Visible to other Bluetooth devices** | Owner (say plainly that the risk is small at home) | 5.6 | already-paired devices and new earbuds are unaffected (the TV searches for them); a phone or laptop cannot find the TV, for example to use it as a Bluetooth speaker, until visibility is switched on again |
+| Vendor phone-link switch ("Quick discover" and similar) | Owner | an old vendor service answers on the network | the vendor's phones and phone app lose their quick connection |
+| Remote-access and VPN apps the owner installed and does not use | Owner | one more thing to keep updated | reinstall from the store when needed |
+| Vendor "user experience / improvement programme" agreements | Quiet: decline | vendor telemetry | none |
+
+**How to ask.** Collect every open decision and ask them together as fixed-choice questions in plain language.
+Each question says what the setting does, what the safer choice costs in daily use, how large the risk really is,
+and which option you recommend and why. Put "I cannot test this now" among the choices where the answer needs
+the owner at the TV. Then apply all the answers in one visit, read each back, and report what could not be done.
 
 How to drive Settings without the owner: open it with `T 'am start -a android.settings.SETTINGS'`, move with
 `input keyevent KEYCODE_DPAD_DOWN` and friends, take a screenshot after every move (`tv.py --screenshot`), and press
@@ -212,7 +224,7 @@ T 'pm list packages -U'                        # uid → package
 | 8008, 8009, 8443 | Chromecast | By design; anyone on the Wi-Fi can cast. Never forward these on the router |
 | 9000, 9080, 1900/udp, and a DIAL server's own ports | Netflix / DIAL discovery | By design |
 | 53317 | LocalSend, while it runs | Close the app after a transfer (`am force-stop org.localsend.localsend_app`); keep its Quick Save off |
-| vendor ports under the system uid | the vendor's phone-link service | Owner's choice: a vendor "quick discover" or "connect" switch closes them |
+| vendor ports under the system uid | the vendor's phone-link service | Reachable from the home network only. Do not promise that a vendor "quick discover" switch closes them: on the measured set the switch went off and the ports stayed open. Read `netstat` again after a restart and report what you see |
 
 Also read what the TV advertises to the whole network: `dns-sd -B _adb._tcp` (macOS) shows the TV's serial number
 for as long as debugging is on.
@@ -223,8 +235,9 @@ Read `ro.build.version.security_patch`. A TV whose maker has stopped updates kee
 setting can soften:
 
 - **Bluetooth keystroke injection (CVE-2023-45866, fixed in the December 2023 patch level):** a device in radio
-  range can pair as a keyboard without consent. The remote needs Bluetooth, so it stays on; switch the TV's
-  Bluetooth **visibility** off, keep Unknown sources off and debugging off so injected keys have little to reach.
+  range can pair as a keyboard without consent. The remote needs Bluetooth, so it stays on. Keep Unknown sources
+  off and debugging off so injected keys have little to reach. Switching the TV's Bluetooth **visibility** off
+  makes it harder to find, at a real cost in convenience: that one is the owner's choice (5.4).
 - **ADB on the network:** rule 11.
 - **Remote-access apps** (AnyDesk and similar): without their control plug-in they can only show the screen after
   a prompt on the TV; unattended access must stay off. If the owner does not use the app, suggest removing it.
@@ -365,6 +378,7 @@ Symptom → cause → fix, for the common ones:
 | Home stays on the stock home | the helper was unbound (Android unbinds it when the launcher is reinstalled) | re-run `install.sh`'s "Home helper" step |
 | Stock home flashes on every Home press | by design (7.1) | theme `key_filter: true` + `home_long_press_home: true`, then re-test held Volume |
 | Mic button does nothing | the stock home or the Assistant got disabled | `pm enable` it |
+| After a restart the remote shows "paired" but not connected, and is missing from `dumpsys input` | a Bluetooth LE remote reconnects at its first button press | none: ask the owner to press a button, then read `dumpsys input` again |
 | Held Volume moves one step | a key-filtering service is on | `key_filter` false; remove other accessibility apps |
 | A tile shows "No signal" | device asleep, or the wrong port id | section 8 |
 | Text hard to read on one photograph | its shade is too weak | lower `SMALL_TEXT` / `LARGE_TEXT` or raise `MAX_SHADE` in `Stage.java`; last resort `wallpaper_dim` |

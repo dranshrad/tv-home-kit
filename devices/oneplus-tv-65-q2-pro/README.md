@@ -61,6 +61,9 @@ for `com.heytap.rom.service`'s app-manager service and does not find it.
 - OnePlus's own page, Settings → System → Personalise, holds "Visible to other bluetooth devices" and "Quick
   discover" (the OnePlus Connect link).
 - Changing "Personal results" asks for the Google account PIN on the TV: the owner's step.
-- Switching "Quick discover" off leaves "Auto discover nearby earbuds" available.
+- Switching "Quick discover" off leaves "Auto discover nearby earbuds" available, and does **not** close the
+  phone-link service's ports (8892 and 8893 still listened after a restart).
+- "Visible to other bluetooth devices" was switched off and then back on at the owner's request: with it off, a
+  phone or laptop cannot find the TV (for example for the TV's Bluetooth speaker mode).
 - Privacy switches found on at first read: Hands-free mic, Usage & diagnostics, an advertising ID, "Scanning always
   available", Bluetooth visibility.

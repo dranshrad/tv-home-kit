@@ -7,7 +7,7 @@
 
 # Telemetry, push marketing and remote diagnostics
 com.google.android.feedback            # Google feedback agent
-com.heytap.mcs                         # HeyTap push messaging (Firebase + nearx tracking)
+com.heytap.mcs                         # HeyTap push messaging (Firebase + nearx tracking) [PERSISTENT: still starts at boot when disabled; see removed-for-user.txt]
 com.heytap.tv.remotediagnosing         # OnePlus remote diagnostics
 com.heytap.tv.remotecontrolinspect     # Remote-control diagnostics app
-com.heytap.rom.service                 # ROM log collector and uploader
+com.heytap.rom.service                 # ROM log collector and uploader [PERSISTENT: still starts at boot when disabled; see removed-for-user.txt]
